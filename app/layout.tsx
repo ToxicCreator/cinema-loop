@@ -1,14 +1,10 @@
-import '@mantine/core/styles.css';
-import '@mantine/carousel/styles.css';
 import React from 'react';
-import { MantineProvider, ColorSchemeScript, Flex } from '@mantine/core';
+import { MantineProvider, ColorSchemeScript, Flex, Container } from '@mantine/core';
 import { NavbarMinimal } from '@/widgets/navbar-minimal';
 import { theme } from '../theme';
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
 
-export const metadata = {
-  title: 'Mantine Next.js template',
-  description: 'I am using Mantine with Next.js!',
-};
 
 export default function RootLayout({ children }: { children: any }) {
   return (
@@ -27,7 +23,9 @@ export default function RootLayout({ children }: { children: any }) {
             justify="center"
           >
             <NavbarMinimal />
-            {children}
+            {/* <Container w={640}> */}
+              {children}
+            {/* </Container> */}
           </Flex>
         </MantineProvider>
       </body>

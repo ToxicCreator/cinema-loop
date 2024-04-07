@@ -1,39 +1,48 @@
 "use client"
 
 import { useState } from 'react';
-import { Center, Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
+import { Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
 import {
-  IconHome2,
   IconUser,
   IconSettings,
   IconLogout,
-  IconSwitchHorizontal,
   IconLayoutList,
   IconMovie
 } from '@tabler/icons-react';
 import classes from './styles.module.css';
+import Link from 'next/link';
 
 interface NavbarLinkProps {
-  icon: typeof IconHome2;
+  icon: typeof IconUser;
+  href: string;
   label: string;
   active?: boolean;
   onClick?(): void;
 }
 
-function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
+function NavbarLink(props: NavbarLinkProps) {
+  const {
+    icon: Icon,
+    href,
+    label,
+    active,
+    onClick
+  } = props;
   return (
     <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
-      <UnstyledButton onClick={onClick} className={classes.link} data-active={active || undefined}>
-        <Icon style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
-      </UnstyledButton>
+      <Link href={href}>
+        <UnstyledButton onClick={onClick} className={classes.link} data-active={active || undefined}>
+          <Icon style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
+        </UnstyledButton>
+      </Link>
     </Tooltip>
   );
 }
 
 const mockdata = [
-  { icon: IconMovie, label: 'Loop' },
-  { icon: IconLayoutList, label: 'Playlists' },
-  { icon: IconUser, label: 'Account' },
+  { icon: IconMovie, label: 'Loop', href: '/' },
+  { icon: IconLayoutList, label: 'Playlists', href: '/playlists' },
+  { icon: IconUser, label: 'Account', href: '/account' },
 ];
 
 export function NavbarMinimal() {
@@ -57,8 +66,12 @@ export function NavbarMinimal() {
       </div>
 
       <Stack justify="center" gap={0}>
-        <NavbarLink icon={IconSettings} label="Settings" />
-        <NavbarLink icon={IconLogout} label="Logout" />
+        <NavbarLink icon={IconSettings} label="Settings" href="/settings" />
+        <Tooltip label="Logout" position="right" transitionProps={{ duration: 0 }}>
+          <UnstyledButton className={classes.link}>
+            <IconLogout style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
+          </UnstyledButton>
+        </Tooltip>
       </Stack>
     </nav>
   );

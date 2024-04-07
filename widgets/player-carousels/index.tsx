@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
-import { useMantineTheme } from '@mantine/core';
+import { Flex, useMantineTheme } from '@mantine/core';
 import { Player } from '@/components/player/inex';
 
 
@@ -41,16 +41,18 @@ export function PlayerCarousel() {
   ));
 
   return (
-    <Carousel
-      ref={carouselRef.current}
-      slideGap="xs"
-      height="100%"
-      slideSize="90%"
-      withControls={false}
-      orientation="vertical"
-      getEmblaApi={setEmbla}
-    >
-      {slides}
-    </Carousel>
+    <Flex justify="center" gap="xs" h="100%">
+      <Carousel
+        ref={carouselRef.current}
+        slideGap="lg"
+        height="100%"
+        slideSize="90%"
+        withControls={false}
+        orientation="vertical"
+        getEmblaApi={setEmbla}
+      >
+        {slides}
+      </Carousel>
+    </Flex>
   );
 }
