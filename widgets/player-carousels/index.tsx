@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
-import { Flex, useMantineTheme } from '@mantine/core';
-import { Player } from '@/components/player/inex';
+import { Flex } from '@mantine/core';
+import { Player } from '@/components/player';
+import throttle from '@/helpers/throttle';
+import styles from './styles.module.css';
 
 
 const data = [
@@ -13,30 +14,46 @@ const data = [
   },
   {
     url: 'https://www.youtube.com/shorts/tli4d-JH5CM'
+  },
+  {
+    url: 'https://www.youtube.com/shorts/4GkPqDkgl-E?feature=share'
   }
 ];
 
 export function PlayerCarousel() {
   const carouselRef = useRef();
-  const [embla, setEmbla] = useState<Embla | null>(null);
+  const [emblaApi, setEmblaApi] = useState<Embla | null>(null);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const handleScroll = useCallback(() => {
-    if (!embla) return;
-    // const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
-    // setScrollProgress(progress * 100);
-  }, [embla]);
+  const handleSlidesInView = useCallback(() => {
+    if (!emblaApi) return;
+    const slidesInView = emblaApi.slidesInView();
+    if (slidesInView.length > 2) {
+      setCurrentSlideIndex(slidesInView[1]);
+    } else if (!emblaApi.canScrollNext()) {
+      setCurrentSlideIndex(slidesInView[1]);
+    } else {
+      setCurrentSlideIndex(slidesInView[0]);
+    }
+  }, [emblaApi]);
 
-  // useEffect(() => {
-  //   if (embla) {
+  const handleWheel = useCallback(
+    throttle((e: React.WheelEvent) => {
+      if (!emblaApi) return;
+      // @ts-ignore
+      if (e.nativeEvent.wheelDelta < 0) emblaApi.scrollNext();
+      else emblaApi.scrollPrev();
+    }, 1000
+), [emblaApi]);
 
-  //     embla.on('scroll', handleScroll);
-  //     handleScroll();
-  //   }
-  // }, [embla]);
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on('settle', handleSlidesInView)
+  }, [emblaApi]);
 
-  const slides = data.map((item) => (
-    <Carousel.Slide key={item.url}>
-      <Player url={item.url} />
+  const slides = data.map((item, index) => (
+    <Carousel.Slide key={`${item.url}-${index}`}>
+      <Player url={item.url} playing={index === currentSlideIndex}/>
     </Carousel.Slide>
   ));
 
@@ -49,10 +66,11 @@ export function PlayerCarousel() {
         slideSize="90%"
         withControls={false}
         orientation="vertical"
-        getEmblaApi={setEmbla}
+        getEmblaApi={setEmblaApi}
       >
         {slides}
       </Carousel>
+      <div className={styles.scrollOverlay} onWheelCapture={handleWheel} />
     </Flex>
   );
 }
