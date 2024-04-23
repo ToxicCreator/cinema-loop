@@ -19,8 +19,11 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <MantineProvider theme={theme}>
           <Flex
-            gap="xs"
+            gap="lg"
             justify="center"
+            align="center"
+            w="100vw"
+            h="100vh"
           >
             <NavbarMinimal />
             {/* <Container w={640}> */}

@@ -5,12 +5,12 @@ import dynamic from 'next/dynamic';
 import { Flex } from '@mantine/core';
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-type Props = {
+export type PlayerProps = {
   url: string;
   playing: boolean;
 }
 
-export const Player = (props: Props) => {
+export const Player = (props: PlayerProps) => {
   const {url, playing} = props;
   const ref = useRef(null);
   return (

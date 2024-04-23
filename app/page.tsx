@@ -16,8 +16,6 @@ export default function HomePage() {
   }, []);
 
   return (
-    <Skeleton visible={loading}>
-      <PlayerCarousel />
-    </Skeleton>
+    <PlayerCarousel />
   );
 }

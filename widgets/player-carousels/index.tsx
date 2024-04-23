@@ -5,7 +5,7 @@ import { Carousel, Embla } from '@mantine/carousel';
 import { Flex } from '@mantine/core';
 import { Player } from '@/components/player';
 import throttle from '@/helpers/throttle';
-import styles from './styles.module.css';
+import { PlayerWheelWrapper } from '@/components/player-wheel-wrapper/PlayerWheelWrapper';
 
 
 const data = [
@@ -37,14 +37,15 @@ export function PlayerCarousel() {
     }
   }, [emblaApi]);
 
-  const handleWheel = useCallback(
-    throttle((e: React.WheelEvent) => {
-      if (!emblaApi) return;
-      // @ts-ignore
-      if (e.nativeEvent.wheelDelta < 0) emblaApi.scrollNext();
-      else emblaApi.scrollPrev();
-    }, 1000
-), [emblaApi]);
+  const handleScrollDown = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const handleScrollUp = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -53,7 +54,12 @@ export function PlayerCarousel() {
 
   const slides = data.map((item, index) => (
     <Carousel.Slide key={`${item.url}-${index}`}>
-      <Player url={item.url} playing={index === currentSlideIndex}/>
+      <PlayerWheelWrapper
+        url={item.url}
+        playing={index === currentSlideIndex}
+        scrollDown={handleScrollDown}
+        scrollUp={handleScrollUp}
+      />
     </Carousel.Slide>
   ));
 
@@ -70,7 +76,6 @@ export function PlayerCarousel() {
       >
         {slides}
       </Carousel>
-      <div className={styles.scrollOverlay} onWheelCapture={handleWheel} />
     </Flex>
   );
 }
