@@ -26,9 +26,7 @@ export default function RootLayout({ children }: { children: any }) {
             h="100vh"
           >
             <NavbarMinimal />
-            {/* <Container w={640}> */}
-              {children}
-            {/* </Container> */}
+            {children}
           </Flex>
         </MantineProvider>
       </body>
