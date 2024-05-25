@@ -66,7 +66,13 @@ export function NavbarMinimal() {
       </div>
 
       <Stack justify="center" gap={0}>
-        <NavbarLink icon={IconSettings} label="Settings" href="/settings" />
+        <NavbarLink
+          icon={IconSettings}
+          label="Settings"
+          href="/settings"
+          active={3 === active}
+          onClick={() => setActive(3)}
+        />
         <Tooltip label="Logout" position="right" transitionProps={{ duration: 0 }}>
           <UnstyledButton className={classes.link}>
             <IconLogout style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
