@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Tooltip, UnstyledButton, Flex, rem } from '@mantine/core';
 import {
   IconUser,
@@ -11,6 +11,7 @@ import {
 } from '@tabler/icons-react';
 import classes from './styles.module.css';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface NavbarLinkProps {
   icon: typeof IconUser;
@@ -50,16 +51,18 @@ const mockdata = [
 ];
 
 export function NavbarMinimal() {
-  const [active, setActive] = useState(0);
+  const currentPagePath = usePathname();
 
-  const links = mockdata.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
-    />
-  ));
+  const links = useMemo(() => mockdata.map((link) => {
+    const active = currentPagePath === link.href;
+    return (
+      <NavbarLink
+        {...link}
+        key={link.href}
+        active={active}
+      />
+    )
+  }), [currentPagePath]);
 
   return (
     <nav className={classes.navbar}>
@@ -96,8 +99,7 @@ export function NavbarMinimal() {
           icon={IconSettings}
           label="Settings"
           href="/settings"
-          active={3 === active}
-          onClick={() => setActive(3)}
+          active={currentPagePath === '/settings'}
         />
         <Tooltip label="Logout" position="right" transitionProps={{ duration: 0 }}>
           <UnstyledButton className={classes.link}>
