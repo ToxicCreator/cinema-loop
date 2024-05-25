@@ -24,11 +24,12 @@ export default function RootLayout({ children }: { children: any }) {
             wrap="wrap"
             align="center"
             justify="center"
+            p={12}
+            h="100vh"
             ml={{
               base: 0,
               sm: 80,
             }}
-            p={12}
           >
             {children}
           </Flex>

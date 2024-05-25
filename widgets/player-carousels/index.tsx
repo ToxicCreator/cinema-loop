@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { Flex } from '@mantine/core';
-import { Player } from '@/components/player';
-import throttle from '@/helpers/throttle';
 import { PlayerWheelWrapper } from '@/components/player-wheel-wrapper/PlayerWheelWrapper';
 
 
@@ -68,6 +66,7 @@ export function PlayerCarousel() {
       <Carousel
         ref={carouselRef.current}
         slideGap="lg"
+        m={12}
         height="100%"
         slideSize="90%"
         withControls={false}

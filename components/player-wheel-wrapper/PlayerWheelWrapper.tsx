@@ -32,7 +32,10 @@ export function PlayerWheelWrapper(props: Props) {
   ), [isPlaying, scrollDown, scrollUp]);
   return (
     <Flex h="100%">
-      <Player {...restProps} playing={isPlaying && playing}/>
+      <Player 
+        {...restProps}
+        playing={isPlaying && playing}
+      />
       <div
         className={styles.scrollOverlay}
         onClick={() => setPlaying((prev) => !prev)}
