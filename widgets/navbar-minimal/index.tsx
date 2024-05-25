@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
+import { Tooltip, UnstyledButton, Flex, rem } from '@mantine/core';
 import {
   IconUser,
   IconSettings,
@@ -29,7 +29,11 @@ function NavbarLink(props: NavbarLinkProps) {
     onClick
   } = props;
   return (
-    <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
+    <Tooltip
+      label={label}
+      position="right"
+      transitionProps={{ duration: 0 }}
+    >
       <Link href={href}>
         <UnstyledButton onClick={onClick} className={classes.link} data-active={active || undefined}>
           <Icon style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
@@ -60,12 +64,34 @@ export function NavbarMinimal() {
   return (
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
-        <Stack justify="center" gap={0}>
+        <Flex
+          justify="center"
+          align="center"
+          gap={{
+            base: 12,
+            sm: 8
+          }}
+          direction={{
+            base: "row",
+            sm: "column"
+          }}
+        >
           {links}
-        </Stack>
+        </Flex>
       </div>
 
-      <Stack justify="center" gap={0}>
+      <Flex
+        justify="center"
+        align="center"
+        gap={{
+          base: 12,
+          sm: 8
+        }}
+        direction={{
+          base: "row",
+          sm: "column"
+        }}
+      >
         <NavbarLink
           icon={IconSettings}
           label="Settings"
@@ -78,7 +104,7 @@ export function NavbarMinimal() {
             <IconLogout style={{ width: rem(20), height: rem(20) }} stroke={1.5} />
           </UnstyledButton>
         </Tooltip>
-      </Stack>
+      </Flex>
     </nav>
   );
 }
