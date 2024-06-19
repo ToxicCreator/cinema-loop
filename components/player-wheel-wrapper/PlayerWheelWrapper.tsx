@@ -31,8 +31,8 @@ export function PlayerWheelWrapper(props: Props) {
       WHEEL_DELAY
   ), [isPlaying, scrollDown, scrollUp]);
   return (
-    <Flex h="100%">
-      <Player 
+    <Flex h="100%" w="100%">
+      <Player
         {...restProps}
         playing={isPlaying && playing}
       />

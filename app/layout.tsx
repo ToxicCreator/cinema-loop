@@ -1,5 +1,5 @@
 import React from 'react';
-import { MantineProvider, ColorSchemeScript, Flex, em, Box } from '@mantine/core';
+import { MantineProvider, ColorSchemeScript, Flex } from '@mantine/core';
 import { NavbarMinimal } from '@/widgets/navbar-minimal';
 import { theme } from '../theme';
 import '@mantine/core/styles.css';
@@ -19,8 +19,9 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <MantineProvider theme={theme}>
           <NavbarMinimal />
-          <Box
+          <Flex
             pos="relative"
+            justify="center"
             p={24}
             mih={{
               base: 'calc(100vh - 80px)',
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: { children: any }) {
             }}
           >
             {children}
-          </Box>
+          </Flex>
         </MantineProvider>
       </body>
     </html>

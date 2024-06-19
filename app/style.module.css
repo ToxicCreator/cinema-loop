@@ -1,0 +1,11 @@
+.root {
+    --height: calc(100vh - 48px);
+    width: calc(100vw - 80px - 48px);
+    height: var(--height);
+    max-width: calc(var(--height) / 2);
+
+    @media (max-width: 768px) {
+        width: calc(100vw - 48px);
+        height: calc(100vh - 80px - 48px);
+    }
+}

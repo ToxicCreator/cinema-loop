@@ -18,7 +18,11 @@ const data = [
   }
 ];
 
-export function PlayerCarousel() {
+type Props = {
+  className?: string;
+}
+
+export function PlayerCarousel(props: Props) {
   const carouselRef = useRef();
   const [emblaApi, setEmblaApi] = useState<Embla | null>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -51,7 +55,7 @@ export function PlayerCarousel() {
   }, [emblaApi]);
 
   const slides = data.map((item, index) => (
-    <Carousel.Slide key={`${item.url}-${index}`}>
+    <Carousel.Slide key={`${item.url}-${index}`} w="100%">
       <PlayerWheelWrapper
         url={item.url}
         playing={index === currentSlideIndex}
@@ -62,13 +66,13 @@ export function PlayerCarousel() {
   ));
 
   return (
-    <Flex justify="center" gap="xs">
+    <Flex className={props.className} justify="center" gap="xs" w="100%">
       <Carousel
         ref={carouselRef.current}
         slideGap="lg"
-        m={12}
         height="100%"
-        slideSize="90%"
+        w="100%"
+        slideSize="100%"
         withControls={false}
         orientation="vertical"
         getEmblaApi={setEmblaApi}
