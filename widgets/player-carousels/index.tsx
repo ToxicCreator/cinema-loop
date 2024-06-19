@@ -62,7 +62,7 @@ export function PlayerCarousel() {
   ));
 
   return (
-    <Flex justify="center" gap="xs" h="100%" w="100%">
+    <Flex justify="center" gap="xs">
       <Carousel
         ref={carouselRef.current}
         slideGap="lg"

@@ -9,13 +9,14 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timerId = setTimeout(() => setLoading((l) => !l), 500);
+    const timerId = setTimeout(() => setLoading(() => false), 1000);
     return () => {
       clearTimeout(timerId);
     };
   }, []);
-
   return (
-    <PlayerCarousel />
+    <Skeleton visible={loading} width="fit-content">
+      <PlayerCarousel />
+    </Skeleton>
   );
 }

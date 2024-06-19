@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { TextInput, PasswordInput, Tooltip, Center, Text, rem } from '@mantine/core';
+import { TextInput, PasswordInput, Tooltip, Center, Text, rem, TooltipProps } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
 
-export function TooltipIcon(props: { label: string; }) {
+export function TooltipIcon(props: Omit<TooltipProps, 'children'> & { label: string; }) {
   const {label} = props;
   const rightSection = label && (
     <Tooltip

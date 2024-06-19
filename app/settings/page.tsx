@@ -1,37 +1,71 @@
 "use client"
-import { Grid} from '@mantine/core';
-import { useState } from 'react';
+import { Button, Grid, Title} from '@mantine/core';
 import { FloatingLabelInput } from '@/components/floating-label-input/FloatingLabelInput';
-import { TooltipIcon } from '@/components/input-tooltip/InputTooltip';
-
-
-const user = {
-  firstName: 'Александр',
-  lastName: 'Болотов',
-  middleName: 'Юрьевич',
-  userName: '@ToxicCreator',
-  accountType: 'Private',
-  photo: 'https://eduodessa.files.wordpress.com/2017/06/photo-833032.jpg',
-  phone: '+7 (910) 234 85 71'
-
-};
+import { useUserStore } from '@/store/user';
+import { useCallback, useMemo, useState } from 'react';
 
 
 export default function AccountPage() {
-  const { firstName, middleName, lastName, userName, photo, phone } = user;
-  const [accountType, setAccountType] = useState(user.accountType);
+  const userState = useUserStore();
+  const [firstName, setFirstName] = useState(userState.firstName);
+  const [middleName, setMiddleName] = useState(userState.middleName);
+  const [lastName, setLastName] = useState(userState.lastName);
+  const [phone, setPhone] = useState(userState.phone);
+  const isNotChanged = useMemo(() => (
+    firstName === userState.firstName
+    && middleName === userState.middleName
+    && lastName === userState.lastName
+    && phone === userState.phone
+  ), [userState, firstName, middleName, lastName, phone]);
+  const handleSave = useCallback(() => {
+    userState.updateFirstName(firstName);
+    userState.updateMiddleName(middleName);
+    userState.updateLastName(lastName);
+    userState.changePhone(phone);
+  }, [userState, firstName, middleName, lastName, phone]);
   return (
-    <Grid grow>
+    <Grid grow maw={1024} p={24}>
       <Grid.Col span={12}>
-        <FloatingLabelInput label="First name" placeholder={firstName} />
-        <FloatingLabelInput label="Middle name" placeholder={middleName} />
-        <FloatingLabelInput label="Last name" placeholder={lastName} />
+        <Title order={1}>
+          User Settings
+        </Title>
+      </Grid.Col>
+      <Grid.Col span={{base: 8, sm: 4}}>
+        <FloatingLabelInput
+          label="First name"
+          mt={32}
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </Grid.Col>
+      {middleName && (
+        <Grid.Col span={{base: 8, sm: 4}}>
+          <FloatingLabelInput
+            label="Middle name"
+            mt={32}
+            value={middleName}
+            onChange={(e) => setMiddleName(e.target.value)}
+          />
+        </Grid.Col>
+      )}
+      <Grid.Col span={{base: 8, sm: 4}}>
+        <FloatingLabelInput
+          label="Last name"
+          mt={32}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
       </Grid.Col>
       <Grid.Col span={12}>
-        <FloatingLabelInput label="Phone" placeholder={phone} />
+        <FloatingLabelInput
+          label="Phone"
+          mt={64}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
       </Grid.Col>
       <Grid.Col span={12}>
-        <TooltipIcon label="We will send a confirmation message to your email address" />
+        <Button w="100%" h={44} mt={32} disabled={isNotChanged} onClick={handleSave}>Save changes</Button>
       </Grid.Col>
     </Grid>
   );

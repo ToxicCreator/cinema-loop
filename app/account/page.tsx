@@ -1,31 +1,29 @@
 "use client"
-import { Text, Group, Avatar, Grid, GridCol, Divider } from '@mantine/core';
-import { IconAt, IconPhoneCall } from '@tabler/icons-react';
+import { Text, Group, Avatar, Grid, Title } from '@mantine/core';
+import { IconPhoneCall } from '@tabler/icons-react';
+import { useUserStore } from '@/store/user';
 import styles from './styles.module.css';
-import { GradientSegmentedControl } from '@/components/gradient-segment-control/GradientSegmentedControl';
-import { useState } from 'react';
-import { FloatingLabelInput } from '@/components/floating-label-input/FloatingLabelInput';
-
-
-const user = {
-  firstName: 'Александр',
-  lastName: 'Болотов',
-  middleName: 'Юрьевич',
-  userName: '@ToxicCreator',
-  accountType: 'Private',
-  photo: 'https://eduodessa.files.wordpress.com/2017/06/photo-833032.jpg',
-  phone: '+7 (910) 234 85 71'
-
-};
 
 
 export default function AccountPage() {
-  const { firstName, middleName, lastName, userName, photo, phone } = user;
-  const [accountType, setAccountType] = useState(user.accountType);
+  const userState = useUserStore();
+  const {
+    firstName,
+    middleName,
+    lastName,
+    userName,
+    photo,
+    phone
+  } = userState;
   return (
-    <Grid p={12} w="100%" pr="12vw">
-      <GridCol>
-        <Group mt={16}>
+    <Grid>
+      <Grid.Col>
+        <Title order={1}>
+          Your Profile
+        </Title>
+      </Grid.Col>
+      <Grid.Col mb="lg">
+        <Group mt={32} align="center">
           <Avatar
             src={photo}
             size={124}
@@ -48,8 +46,10 @@ export default function AccountPage() {
             </Group>
           </div>
         </Group>
-      
-      </GridCol>
+      </Grid.Col>
+      <Grid.Col>
+        123
+      </Grid.Col>
     </Grid>
   );
 }

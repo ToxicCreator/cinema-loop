@@ -1,10 +1,9 @@
 import React from 'react';
-import { MantineProvider, ColorSchemeScript, Flex, em } from '@mantine/core';
+import { MantineProvider, ColorSchemeScript, Flex, em, Box } from '@mantine/core';
 import { NavbarMinimal } from '@/widgets/navbar-minimal';
 import { theme } from '../theme';
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
-import { useMediaQuery } from '@mantine/hooks';
 
 
 export default function RootLayout({ children }: { children: any }) {
@@ -20,19 +19,24 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <MantineProvider theme={theme}>
           <NavbarMinimal />
-          <Flex
-            wrap="wrap"
-            align="center"
-            justify="center"
-            p={12}
-            h="100vh"
+          <Box
+            pos="relative"
+            p={24}
+            mih={{
+              base: 'calc(100vh - 80px)',
+              sm: '100vh'
+            }}
             ml={{
               base: 0,
               sm: 80,
             }}
+            mb={{
+              base: 80,
+              sm: 0
+            }}
           >
             {children}
-          </Flex>
+          </Box>
         </MantineProvider>
       </body>
     </html>
