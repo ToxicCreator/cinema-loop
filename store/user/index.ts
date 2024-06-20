@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { VideoData } from "../videos";
+import { DEFAULT_VIDEOS } from "../values";
 
 
 type AccountType = 'Private' | 'Public';
@@ -11,6 +13,7 @@ type UserState = {
   accountType: AccountType,
   photo?: string,
   phone: string,
+  videos: VideoData[],
   updateFirstName: (firstName: string) => void,
   updateLastName: (lastName: string) => void,
   updateMiddleName: (middleName?: string) => void,
@@ -26,6 +29,7 @@ export const useUserStore = create<UserState>((set) => ({
   accountType: 'Private',
   photo: 'https://eduodessa.files.wordpress.com/2017/06/photo-833032.jpg',
   phone: '+7 (910) 234 85 71',
+  videos: DEFAULT_VIDEOS,
 
   updateFirstName: (firstName: string) => set(
     (userState) => ({

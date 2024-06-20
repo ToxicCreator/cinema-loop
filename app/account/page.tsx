@@ -1,10 +1,11 @@
 "use client"
-import { Text, Group, Avatar, Grid, Title, Stack } from '@mantine/core';
+
+import { Text, Group, Avatar, Grid, Title } from '@mantine/core';
 import { IconPhoneCall } from '@tabler/icons-react';
 import { useUserStore } from '@/store/user';
-import styles from './styles.module.css';
 import { StatsRing } from '@/widgets/stats-ring/StatsRing';
 import { VideosPanel } from '@/widgets/videos-panel/VideosPanel';
+import styles from './styles.module.css';
 
 
 export default function AccountPage() {
@@ -15,7 +16,8 @@ export default function AccountPage() {
     lastName,
     userName,
     photo,
-    phone
+    phone,
+    videos
   } = userState;
   return (
     <Grid maw={1500}>
@@ -57,7 +59,7 @@ export default function AccountPage() {
         <Title order={2} mt={32} mb={16}>
           Your videos:
         </Title>
-        <VideosPanel />
+        <VideosPanel videos={videos} />
       </Grid.Col>
     </Grid>
   );
