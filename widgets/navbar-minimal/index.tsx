@@ -1,13 +1,14 @@
 "use client"
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Tooltip, UnstyledButton, Flex, rem } from '@mantine/core';
 import {
   IconUser,
   IconSettings,
   IconLogout,
   IconLayoutList,
-  IconMovie
+  IconMovie,
+  IconUpload
 } from '@tabler/icons-react';
 import classes from './styles.module.css';
 import Link from 'next/link';
@@ -48,6 +49,7 @@ const mockdata = [
   { icon: IconMovie, label: 'Loop', href: '/' },
   { icon: IconLayoutList, label: 'Playlists', href: '/playlists' },
   { icon: IconUser, label: 'Account', href: '/account' },
+  { icon: IconUpload, label: 'Upload video', href: '/upload' }
 ];
 
 export function NavbarMinimal() {

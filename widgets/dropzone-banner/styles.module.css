@@ -1,0 +1,29 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dropzone {
+    margin-bottom: rem(30px);
+    padding: rem(128px);
+    
+    border-radius: 16px;
+    box-shadow: 0 0 4px #00000080;
+
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: var(--mantine-color-dark-8);
+    }
+}
+
+.icon {
+    color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+}
+
+.previews {
+
+}
