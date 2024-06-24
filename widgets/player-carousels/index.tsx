@@ -4,19 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Carousel, Embla } from '@mantine/carousel';
 import { Flex } from '@mantine/core';
 import { PlayerWheelWrapper } from '@/components/player-wheel-wrapper/PlayerWheelWrapper';
+import { useVideoStore } from '@/store/videos';
 
-
-const data = [
-  {
-    url: 'https://www.youtube.com/shorts/Itd0NF8sBkc'
-  },
-  {
-    url: 'https://www.youtube.com/shorts/tli4d-JH5CM'
-  },
-  {
-    url: 'https://www.youtube.com/shorts/4GkPqDkgl-E?feature=share'
-  }
-];
 
 type Props = {
   className?: string;
@@ -24,6 +13,7 @@ type Props = {
 
 export function PlayerCarousel(props: Props) {
   const carouselRef = useRef();
+  const {videos} = useVideoStore();
   const [emblaApi, setEmblaApi] = useState<Embla | null>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
@@ -54,7 +44,7 @@ export function PlayerCarousel(props: Props) {
     emblaApi.on('settle', handleSlidesInView)
   }, [emblaApi]);
 
-  const slides = data.map((item, index) => (
+  const slides = videos.map((item, index) => (
     <Carousel.Slide key={`${item.url}-${index}`} w="100%">
       <PlayerWheelWrapper
         url={item.url}
