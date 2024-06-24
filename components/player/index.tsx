@@ -32,7 +32,6 @@ export const Player = (props: PlayerProps) => {
           loop={true}
           playing={playing}
           playsinline={true}
-          volume={0}
           muted={true}
           onReady={(e) => {
             const player = e.getInternalPlayer();
